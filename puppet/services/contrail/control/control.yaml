@@ -1,0 +1,23 @@
+heat_template_version: 2016-04-08
+
+description: >
+  Contrail Control service deployment using puppet, this YAML file
+  creates the interface between the HOT template
+  and the puppet manifest that actually installs
+  and configures Contrail Control.
+
+parameters:
+  EndpointMap:
+    default: {}
+    description: Mapping of service endpoint -> protocol. Typically set
+                 via parameter_defaults in the resource registry.
+    type: json
+
+outputs:
+  role_data:
+    description: Role Contrail Control using composable services.
+    value:
+      service_name: contrail-control
+      config_settings:
+      step_config: |
+        include ::tripleo::profile::contrail::control
