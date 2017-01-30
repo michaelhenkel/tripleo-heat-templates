@@ -50,3 +50,5 @@ parameter_defaults:
   NeutronTunnelTypes: ''
   NeutronMetadataProxySharedSecret: secret
   ContrailControlRNDCSecret: sHE1SM8nsySdgsoRxwARtA==
+  NovaLibvirtCpuMode: custom
+  NovaLibvirtCpuModel: Nehalem

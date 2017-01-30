@@ -32,7 +32,7 @@ resources:
         str_replace:
           template: |
             #!/bin/bash
-            sed -i '/\[main\]/a \ \ \ \ \parser = future' /etc/puppet/puppet.conf
+            #sed -i '/\[main\]/a \ \ \ \ \parser = future' /etc/puppet/puppet.conf
             cat <<EOF > /etc/yum.repos.d/contrail.repo
             [Contrail]
             name=Contrail Repo
@@ -41,6 +41,9 @@ resources:
             gpgcheck=0
             protect=1
             EOF
+            if [[ `hostname |awk -F"-" '{print $2}'` == "contrailcontroller" || `hostname |awk -F"-" '{print $2}'` == "contrailanalytics" || `hostname |awk -F"-" '{print $2}'` == "contrailanalyticsdatabase" ]]; then
+              sed -i '/\[main\]/a \ \ \ \ \parser = future' /etc/puppet/puppet.conf
+            fi
             if [[ `hostname |awk -F"-" '{print $2}'` == "novacompute" || `hostname |awk -F"-" '{print $2}'` == "contrailtsn" ]]; then 
               yum install -y contrail-vrouter-utils
               function pkt_setup () {

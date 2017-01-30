@@ -180,6 +180,7 @@
     - OS::TripleO::Services::TripleoPackages
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: ContrailAnalytics
   ServicesDefault:
@@ -192,6 +193,7 @@
     - OS::TripleO::Services::TripleoPackages
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: ContrailAnalyticsDatabase
   ServicesDefault:
@@ -204,6 +206,7 @@
     - OS::TripleO::Services::TripleoPackages
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: ContrailTsn
   ServicesDefault:
@@ -216,3 +219,4 @@
     - OS::TripleO::Services::TripleoPackages
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
