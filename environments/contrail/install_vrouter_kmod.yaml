@@ -87,14 +87,14 @@ resources:
               rpm2cpio /tmp/contrail-vrouter*.rpm | cpio -idmv
               cp `find /tmp/lib/modules -name vrouter.ko |tail -1` /tmp
               insert_vrouter
-              if [[ `ifconfig $dev |grep "inet "` ]]; then
+              if [[ `ifconfig $phy_int |grep "inet "` ]]; then
                 def_gw=''
-                if [[ `ip route show |grep default|grep $dev` ]]; then
-                  def_gw=`ip route show |grep default|grep $dev|awk '{print $3}'`
+                if [[ `ip route show |grep default|grep $phy_int` ]]; then
+                  def_gw=`ip route show |grep default|grep $phy_int|awk '{print $3}'`
                 fi
-                ip=`ifconfig $dev |grep "inet "|awk '{print $2}'`
-                mask=`ifconfig $dev |grep "inet "|awk '{print $4}'`
-                ip address delete $ip/$mask dev $dev
+                ip=`ifconfig $phy_int |grep "inet "|awk '{print $2}'`
+                mask=`ifconfig $phy_int |grep "inet "|awk '{print $4}'`
+                ip address delete $ip/$mask dev $phy_int
                 ip address add $ip/$mask dev vhost0
                 if [[ $def_gw ]]; then
                   ip route add default via $def_gw
