@@ -15,18 +15,18 @@ resource_registry:
   OS::TripleO::Services::ContrailDatabase: ../../puppet/services/network/contrail-database.yaml
   OS::TripleO::Services::ContrailWebUI: ../../puppet/services/network/contrail-webui.yaml
   OS::TripleO::Services::ContrailTsn: ../../puppet/services/network/contrail-tsn.yaml
-  OS::TripleO::Services::ComputeNeutronCorePluginContrail: ../../puppet/services/network/contrail-vrouter.yaml
-  OS::TripleO::Services::NeutronCorePluginContrail: ../../puppet/services/network/contrail-neutron-plugin.yaml
+  OS::TripleO::Services::ComputeNeutronCorePlugin: ../../puppet/services/network/contrail-vrouter.yaml
+  OS::TripleO::Services::NeutronCorePlugin: ../../puppet/services/network/contrail-neutron-plugin.yaml
 parameter_defaults:
   ServiceNetMap:
-    default:
-      ContrailAnalyticsNetwork: internal_api
-      ContrailAnalyticsDatabaseNetwork: internal_api
-      ContrailConfigNetwork: internal_api
-      ContrailControlNetwork: internal_api
-      ContrailDatabaseNetwork: internal_api
-      ContrailWebuiNetwork: internal_api
-      ContrailTsnNetwork: internal_api
+    ContrailAnalyticsNetwork: internal_api
+    ContrailAnalyticsDatabaseNetwork: internal_api
+    ContrailConfigNetwork: internal_api
+    ContrailControlNetwork: internal_api
+    ContrailDatabaseNetwork: internal_api
+    ContrailWebuiNetwork: internal_api
+    ContrailTsnNetwork: internal_api
+    ContrailVrouterNetwork: internal_api
   ContrailRepo: http://192.0.2.1/contrail-3.2.0.0-19
   EnablePackageInstall: true
   ContrailConfigIfmapUserName: api-server

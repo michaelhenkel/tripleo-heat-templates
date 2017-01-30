@@ -14,21 +14,14 @@
 # defaults to '%stackname%-{{role.name.lower()}}-%index%'
 # sets the default for {{role.name}}HostnameFormat parameter in overcloud.yaml
 #
-# disable_constraints: (boolean) optional, whether to disable Nova and Glance
-# constraints for each role specified in the templates.
-#
-# disable_upgrade_deployment: (boolean) optional, whether to run the composable upgrade
-# steps for all services that are deployed on the particular role.
-#
 # ServicesDefault: (list) optional default list of services to be deployed
 # on the role, defaults to an empty list. Sets the default for the
 # {{role.name}}Services parameter in overcloud.yaml
 
-- name: Controller # the 'primary' role goes first
+- name: Controller
   CountDefault: 1
   ServicesDefault:
     - OS::TripleO::Services::CACerts
-    - OS::TripleO::Services::CephMds
     - OS::TripleO::Services::CephMon
     - OS::TripleO::Services::CephExternal
     - OS::TripleO::Services::CephRgw
@@ -37,9 +30,11 @@
     - OS::TripleO::Services::CinderScheduler
     - OS::TripleO::Services::CinderVolume
     - OS::TripleO::Services::ContrailHeat
+    - OS::TripleO::Services::Core
     - OS::TripleO::Services::Kernel
     - OS::TripleO::Services::Keystone
     - OS::TripleO::Services::GlanceApi
+    - OS::TripleO::Services::GlanceRegistry
     - OS::TripleO::Services::HeatApi
     - OS::TripleO::Services::HeatApiCfn
     - OS::TripleO::Services::HeatApiCloudwatch
@@ -60,12 +55,10 @@
     - OS::TripleO::Services::NovaConductor
     - OS::TripleO::Services::MongoDb
     - OS::TripleO::Services::NovaApi
-    - OS::TripleO::Services::NovaPlacement
     - OS::TripleO::Services::NovaMetadata
     - OS::TripleO::Services::NovaScheduler
     - OS::TripleO::Services::NovaConsoleauth
     - OS::TripleO::Services::NovaVncProxy
-    - OS::TripleO::Services::Ec2Api
     - OS::TripleO::Services::Ntp
     - OS::TripleO::Services::SwiftProxy
     - OS::TripleO::Services::SwiftStorage
@@ -102,19 +95,11 @@
     - OS::TripleO::Services::OpenDaylightOvs
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
-    - OS::TripleO::Services::BarbicanApi
-    - OS::TripleO::Services::PankoApi
-    - OS::TripleO::Services::Zaqar
-    - OS::TripleO::Services::OVNDBs
-    - OS::TripleO::Services::NeutronML2FujitsuCfab
-    - OS::TripleO::Services::NeutronML2FujitsuFossw
-    - OS::TripleO::Services::CinderHPELeftHandISCSI
-    - OS::TripleO::Services::Etcd
+    - OS::TripleO::Services::VipHosts
 
 - name: Compute
   CountDefault: 1
   HostnameFormatDefault: '%stackname%-novacompute-%index%'
-  disable_upgrade_deployment: True
   ServicesDefault:
     - OS::TripleO::Services::CACerts
     - OS::TripleO::Services::CephClient
@@ -136,6 +121,7 @@
     - OS::TripleO::Services::OpenDaylightOvs
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: BlockStorage
   ServicesDefault:
@@ -149,9 +135,9 @@
     - OS::TripleO::Services::TripleoFirewall
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: ObjectStorage
-  disable_upgrade_deployment: True
   ServicesDefault:
     - OS::TripleO::Services::CACerts
     - OS::TripleO::Services::Kernel
@@ -164,9 +150,9 @@
     - OS::TripleO::Services::TripleoFirewall
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: CephStorage
-  disable_upgrade_deployment: True
   ServicesDefault:
     - OS::TripleO::Services::CACerts
     - OS::TripleO::Services::CephOSD
@@ -178,6 +164,7 @@
     - OS::TripleO::Services::TripleoFirewall
     - OS::TripleO::Services::SensuClient
     - OS::TripleO::Services::FluentdClient
+    - OS::TripleO::Services::VipHosts
 
 - name: ContrailController
   ServicesDefault:
