@@ -50,6 +50,7 @@ parameters:
       MemcachedNetwork: internal_api
       RabbitmqNetwork: internal_api
       RedisNetwork: internal_api
+      TenantNetwork: tenant
       MysqlNetwork: internal_api
       CephClusterNetwork: storage_mgmt
       CephMonNetwork: storage

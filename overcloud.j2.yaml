@@ -86,6 +86,12 @@ parameters:
         Control the IP allocation for the virtual IP used by Redis. E.g.
         [{'ip_address':'1.2.3.4'}]
     type: json
+  TenantVirtualFixedIPs:
+    default: []
+    description: >
+        Control the IP allocation for the virtual IP used by Redis. E.g.
+        [{'ip_address':'1.2.3.4'}]
+    type: json
   CloudDomain:
     default: 'localdomain'
     type: string
@@ -400,6 +406,7 @@ resources:
       memcache_node_ips: {get_attr: [ControllerIpListMap, net_ip_map, {get_attr: [ServiceNetMap, service_net_map, MemcachedNetwork]}]}
       NetVipMap: {get_attr: [VipMap, net_ip_map]}
       RedisVirtualIP: {get_attr: [RedisVirtualIP, ip_address]}
+      TenantVirtualIP: {get_attr: [TenantVirtualIP, ip_address]}
       ServiceNetMap: {get_attr: [ServiceNetMap, service_net_map_lower]}
       DeployIdentifier: {get_param: DeployIdentifier}
       UpdateIdentifier: {get_param: UpdateIdentifier}
@@ -447,6 +454,16 @@ resources:
       NetworkName: {get_attr: [ServiceNetMap, service_net_map, RedisNetwork]}
       ServiceName: redis
       FixedIPs: {get_param: RedisVirtualFixedIPs}
+
+  TenantVirtualIP:
+    depends_on: Networks
+    type: OS::TripleO::Network::Ports::TenantVipPort
+    properties:
+      ControlPlaneIP: {get_attr: [ControlVirtualIP, fixed_ips, 0, ip_address]}
+      ControlPlaneNetwork: {get_param: NeutronControlPlaneID}
+      PortName: tenant_virtual_ip
+      TenantNetName: {get_attr: [ServiceNetMap, service_net_map, TenantNetwork]}
+      FixedIPs: {get_param: TenantVirtualFixedIPs}
 
   # The public VIP is on the External net, falls back to ctlplane
   PublicVirtualIP:
